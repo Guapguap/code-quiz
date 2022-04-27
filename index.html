@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/styles.css">
+    <title>Code Quiz</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Code_Quiz</h1>
+         <button id = "start-button" class = "startBtn">Start</button>
+    </header>
+
+    <section>
+        <!-- add an anchor to link it to a new page for the highscore page  -->
+        <h2>Highscores</h2>
+    </section>
+
+    <main>
+        <section>
+            <div class="card word-guess">
+              <div id = 'start-board' class="large-font">Test your coding knowledge!</div>
+              <div id = 'quiz-board' class="large-font">
+              </div>
+              <div id = 'decision' class="card"></div>
+            </div>
+        </section>
+        <div class= "card timer">
+            <div class = "timer-text">
+            <div id="timer-count" class="large-font">90</div>
+            <h3>seconds remaining</h3>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
