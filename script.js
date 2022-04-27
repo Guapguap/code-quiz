@@ -39,7 +39,7 @@ let questions = [
 let isComplete = false;
 let timer;
 let timerCount;
-let penalty = 15;
+let penalty = 10;
 
 let createOl = $('<ol>');
 let score = 0;
@@ -88,7 +88,8 @@ function quizQuestions() {
     let questionIndex = 0;
     let checkChoice;
 
-    if (questionIndex < questions.length) {
+    // if the index is less than the questionslength, then this entire function will go 
+    // if (questionIndex < questions.length) {
 
         // Appends question title only
         let currentQuestion = questions[questionIndex].title;
@@ -96,7 +97,7 @@ function quizQuestions() {
         quizCard.text(currentQuestion);
 
         // New for each for question choices
-    currentChoices.forEach(function (newItem, questionIndex) {
+    currentChoices.forEach(function (newItem) {
     // variable creates a list item 
     let listItem = $('<li>');
 
@@ -113,27 +114,34 @@ function quizQuestions() {
     // the click event will now redirect it to a different function 
     listItem.on("click", function(event){
 
+        // decision stores the value of what got clicked 
         let decision = event.target;
 
         console.log(decision)
         console.log(questions[questionIndex].answer);
-        if (decision == questions[questionIndex].answer) {
-            
-            decisionCard.text('CORRECT!');
+        if (decision.textContent === questions[questionIndex].answer) {
             score++;
+            decisionCard.text('CORRECT!' + ' You have '+ score + '/5');
+            questionIndex++; 
+            currentQuestion = questions[questionIndex].title;
+            currentChoices = questions[questionIndex].choices;
         } else {
-            decisionCard.text('INCORRECT!');
+            decisionCard.text('INCORRECT!' + ' You have '+ score + '/5');
             timerCount -= penalty;
+            questionIndex++; 
+            currentQuestion = questions[questionIndex].title;
+            currentChoices = questions[questionIndex].choices;
         }
-    });
-    
-    })
-    };
-    
-   
-    
+        
 
-}
+    
+    });
+        
+    })
+    
+};
+
+
 
 // function checkChoice(e, questionIndex) {
 
