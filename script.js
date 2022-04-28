@@ -43,15 +43,19 @@ let penalty = 10;
 
 let createOl = $('<ol>');
 let score = 0;
+let index = 0;
 
-function startGame() {
+function startBtn() {
     isComplete = false;
     timerCount = 90;
-    // Prevents start button from being clicked when round is in progress
-    startButton.disabled = true;
+    
+    // hides and shows the selected variables 
+    startButton.hide();
     startCard.hide();
     quizCard.show();
-    quizQuestions() 
+
+    // invokes these functions when button is pressed 
+    startGame() 
     startTimer()
 }
 
@@ -77,23 +81,19 @@ function startTimer() {
     }, 1000);
 }
 
-function quizQuestions() {
-
+function startGame(next) {
 // incrimentor ++ use that operator that incriments 
-
+    index += next
     // incrimenting the question variable 
-    // questionIndex++ is what i need and figure out where i need to put it 
-    // write a condition is questionIndex if its < questions.length 
+    // index++ is what i need and figure out where i need to put it 
+    // write a condition is index if its < questions.length 
     // i can put the check questions in one function to not separate the data.
-    let questionIndex = 0;
-    let checkChoice;
+    
 
     // if the index is less than the questionslength, then this entire function will go 
-    // if (questionIndex < questions.length) {
-
         // Appends question title only
-        let currentQuestion = questions[questionIndex].title;
-        var currentChoices = questions[questionIndex].choices;
+        let currentQuestion = questions[index].title;
+        var currentChoices = questions[index].choices;
         quizCard.text(currentQuestion);
 
         // New for each for question choices
@@ -113,60 +113,50 @@ function quizQuestions() {
 
     // the click event will now redirect it to a different function 
     listItem.on("click", function(event){
-
         // decision stores the value of what got clicked 
         let decision = event.target;
 
         console.log(decision)
-        console.log(questions[questionIndex].answer);
-        if (decision.textContent === questions[questionIndex].answer) {
+        console.log(questions[index].answer);
+        if (decision.textContent === questions[index].answer) {
             score++;
             decisionCard.text('CORRECT!' + ' You have '+ score + '/5');
-            questionIndex++; 
-            currentQuestion = questions[questionIndex].title;
-            currentChoices = questions[questionIndex].choices;
+            next(1);
+            // nextQuestion();
+
         } else {
             decisionCard.text('INCORRECT!' + ' You have '+ score + '/5');
-            timerCount -= penalty;
-            questionIndex++; 
-            currentQuestion = questions[questionIndex].title;
-            currentChoices = questions[questionIndex].choices;
-        }
-        
-
+            timerCount -= penalty; 
+            next(1);
+            // nextQuestion();
+        };
     
+  
+  // once the index stores the value of the index, the if else function runs 
+//   if (index < questions.length) { 
+//     // questionIndex = questions.length - 1;
+//     index++ 
+//     console.log(index);
+//   } else if (index > questions.length) {
+
+//     // invokes the quizComplete function 
+//     quizComplete();
+//   }
+//     quizCard = questions[index].title
+//     currentChoices = questions[index].choices
+// //   currentImage = images[index];
     });
         
     })
     
+    
 };
 
-
-
-// function checkChoice(e, questionIndex) {
-
-//     let decision = e.target;
-//     console.log(decision);
-//     // console.log(decision.textContent); 
-//     // console.log(questions[questionArray].answer) 
-//     if (decision.matches('li')) {
-//         // score++; 
-        
-//        if (decision.textContent == questions[questionIndex].answer ) {
-//         decisionCard.text('CORRECT!');
-       
-//        } else {
-//            decisionCard.text('INCORRECT!');
-        
-//        }
-
-//     }; 
-
-//     // Progresses onto the next question 
-  
-
-// } 
-
+// function nextQuestion () {
+//     if (index < questions.length) {
+//         index++
+//     }
+// }
 // The quizIncomplete function is called when timer reaches 0
 function quizIncomplete() {
 
@@ -174,8 +164,11 @@ function quizIncomplete() {
     startButton.disabled = false;
 }
 
-// function quizComplete {
+function quizComplete() {
+    let createP = $('<p>');
+    createP.text('QUIZ COMPLETED!');
+    createP.attr('class', 'complete-p');
+    quizCard.append(createP);
+}
 
-// }
-
-startButton.on("click", startGame);
+startButton.on("click", startBtn);

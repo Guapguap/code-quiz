@@ -1,3 +1,7 @@
+body {
+    background-color: midnightblue;
+}
+
 .header {
     display: flex;
     flex-wrap: wrap;
@@ -16,6 +20,11 @@
     display: flex;
     justify-content: center;
     font-size: 48px;
+}
+
+.highscore:hover {
+    color: white;
+    
 }
 
 .startBtn {
