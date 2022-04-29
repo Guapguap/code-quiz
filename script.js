@@ -1,10 +1,11 @@
 // variables linking html to js 
 let timerElement = $('#timer-count');
+let timerBoard = $('div.card.timer');
 let startButton = $('#start-button');
 let quizCard = $('#quiz-board');
 let startCard = $('#start-board');
 let decisionCard = $('#decision');
-let choiceBtn = $('choiceBtn');
+
 
 // an array of questions and choices 
 let questions = [
@@ -61,6 +62,9 @@ function startBtn() {
     startTimer()
 }
 
+// addEventListener when the button is clicked. it invokes the startBtn function 
+startButton.on("click", startBtn);
+
 // this timer function will perform the following code and invoke quizIncomplete if not completed in the allotted time 
 function startTimer() {
     // Sets timer
@@ -75,32 +79,18 @@ function startTimer() {
             // quizComplete();
         }
         }
-      // If time ran out, then the timer cleared and the lose game function is invoked 
+      // If time ran out, then the timer and questions are cleared and the incompleteQuiz function is invoked 
         if (timerCount === 0) {
         // Clears interval
         clearInterval(timer);
+        $('li').remove();
         quizIncomplete();
         }
     }, 1000);
 }
-// incrimentor ++ use that operator that incriments 
 
-    // incrimenting the question variable 
-    // index++ is what i need and figure out where i need to put it 
-    // write a condition is index if its < questions.length 
-    // i can put the check questions in one function to not separate the data.
-    
-
-    // if the index is less than the questionslength, then this entire function will go 
-
+// main function displaying the questions and choices 
 function startGame() {
-        
-        // clears out previous questions and choices
-        // $('quizCard').html();
-        // $('listItem ').html();
-        // $('listItem').empty();
-        // listItem.remove();
-        
 
         // to loop through entire questions array
         for (let i = 0; i < questions.length; i++) {
@@ -110,9 +100,7 @@ function startGame() {
         quizCard.text(currentQuestion);
         }
     
-        
-    // changing the variable of currentChoices to just current question 
-        // New for each for question choices
+    // assigning the value of currentChoices to each li with the argument 
     currentChoices.forEach(function (newItem) {
         
     // variable creates a list item 
@@ -120,38 +108,22 @@ function startGame() {
 
     // assigns listItem a class to be styled 
     listItem.attr('class', 'choiceBtn'); 
+
     // each listItem will now have some textContent 
     listItem.text(newItem); 
     
     // on the quizCard an ordered list will be created and attached to it 
     quizCard.append(createOl);
 
+    // the new list items will be appended to the ordered list
     createOl.append(listItem);
 
-    // the click event will now redirect it to a different function 
-    listItem.on("click", (nextQuestion));
-        
-//   // once the index stores the value of the index, the if else function runs 
-//   if (index < questions.length) { 
-//     // questionIndex = questions.length - 1;
-//     index++ 
-//     console.log(index);
-//   } else if (index > questions.length) {
-
-//     // invokes the quizComplete function 
-//     quizComplete();
-//   }
-//     quizCard = questions[index].title
-//     currentChoices = questions[index].choices
-// //   currentImage = images[index];
-//     });
-        
-//     })
-    
-    
+    // the click event will now redirect it to the nextQuestion function
+    listItem.on("click", nextQuestion);
 })
 }
 
+// this function will determine if the selected li is correct or not, incriment the index by 1 to move onto the next question / choices, and clear out the previous li and invoke the startGame function again to repeat the process until all questions are answered 
 function nextQuestion (event) {
 
         // decision stores the value of what got clicked 
@@ -162,25 +134,29 @@ function nextQuestion (event) {
         console.log(questions[index].title);
         console.log(questions[index].choices);
         console.log(questions[index].answer);
+
+    // if statement to determine if the selected li is correct or not     
     if (decision.matches('li')){
     
+        // if true then the following code will perform 
         if (decision.textContent == questions[index].answer) {
             score++;
             // quizCard.setText = ("");
             decisionCard.text('CORRECT!' + ' You have '+ score + '/5');
             // index++;
     
+        // if they do not match then the following code will perform 
         } else {
+
             decisionCard.text('INCORRECT!' + ' You have '+ score + '/5');
             timerCount -= penalty;
-            // quizCard.setText = ("");
-            // index++; 
+
         }
     } 
+
     // adds 1 to the index once decision has been made 
     index++;
     
-
     // this if else statement stops the questions when it is greater than or equal to and invokes the quizComplete function 
     // if it is not done with the questions, it removes all the previous li that were appended and invokes the start game function again with the next questions 
         if (index >= questions.length){
@@ -192,44 +168,53 @@ function nextQuestion (event) {
             startGame();
         }
 }
+
 // The quizIncomplete function is called when timer reaches 0
+// shows the startbutton again to take the retake the quiz 
 function quizIncomplete() {
 
-    quizCard.text('TIME IS UP!');
+    quizCard.text('TIME IS UP! Click the start button above again to retake the quiz.');
+    startButton.show();
     startButton.disabled = false;
 }
 
 // add a link here to a bootstrap form for highscore 
 function quizComplete() {
-    
 
-    // create a p element to be added on the quizCard with the following text
+    timerBoard.hide()
+    quizCard.hide();
+    startCard.show();
+
+    // create a p element to be added on the startCard with the following text
     let createP = $('<p>');
     createP.text('QUIZ COMPLETED!');
     createP.attr('class', 'complete-p');
-    quizCard.append(createP);
+    startCard.append(createP);
 
     if (timerCount >=0 ){
-        var finalScore = timerCount;
 
-    clearInterval(timer);
-    
+        var finalScore = timerCount;
+        clearInterval(timer);
+        decisionCard.text('Your highscore is: ' + finalScore);
+
     }
 
-    // create a label to store the initials upon completion and possibly to style later with new ids
+    
+
+    // create a label to store the initials upon completion
     let createLabel = $("<label>");
     createLabel.attr("id", "createLabel");
     createLabel.text("Enter your initials: ");
 
-    quizCard.append(createLabel);
+    startCard.append(createLabel);
 
-    // create an input section for the label so they are able to type into the empty text field and possibly to style later with new ids
+    // create an input section for the label so they are able to type into the empty text field
     let createInput = $("<input>");
     createInput.attr("type", "text");
     createInput.attr("id", "initials");
-    createInput.textContent = "";
+    createInput.textContent = ""
 
-    quizCard.append(createInput);
+    startCard.append(createInput);
 
     // create a submit button 
     let createSubmit = $("<button>");
@@ -237,18 +222,16 @@ function quizComplete() {
     createSubmit.attr("id", "Submit");
     createSubmit.text("Submit");
 
-    quizCard.append(createSubmit);
+    startCard.append(createSubmit);
 
     // figure out how to put this in the highscore section 
     // Event listener to capture initials and local storage for initials and score
     createSubmit.on("click", function () {
-        let initials = createInput.value;
 
-        if (initials === null) {
+        console.log(createInput.value);
+        let initials = createInput.value
 
-            console.log("No value entered!");
-
-        } else {
+        if (initials) {
             let storedScore = {
                 initials: initials,
                 score: finalScore
@@ -263,8 +246,8 @@ function quizComplete() {
             allScores.push(storedScore);
             let newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore);
+            window.location.assign("highscore.html");
         }
     });
 }
 
-startButton.on("click", startBtn);
