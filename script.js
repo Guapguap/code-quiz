@@ -43,8 +43,9 @@ let timerCount;
 let penalty = 10;
 
 let createOl = $('<ol>');
+let listItem = $('<li>');
 let score = 0;
-var index = 0;
+let index = 0;
 
 function startBtn() {
     isComplete = false;
@@ -56,7 +57,7 @@ function startBtn() {
     quizCard.show();
 
     // invokes these functions when button is pressed 
-    startGame(index) 
+    startGame() 
     startTimer()
 }
 
@@ -92,25 +93,31 @@ function startTimer() {
 
     // if the index is less than the questionslength, then this entire function will go 
 
-function startGame(index) {
-
-    // clears out previous questions and choices
-    quizCard.html();
-    createOl.html();
+function startGame() {
         
+        // clears out previous questions and choices
+        // $('quizCard').html();
+        // $('listItem ').html();
+        // $('listItem').empty();
+        // listItem.remove();
+       
+
         // to loop through entire questions array
         for (let i = 0; i < questions.length; i++) {
         // appends question title only
         let currentQuestion = questions[index].title;
         var currentChoices = questions[index].choices;
         quizCard.text(currentQuestion);
-    }
+        }
     
+        
     // changing the variable of currentChoices to just current question 
         // New for each for question choices
     currentChoices.forEach(function (newItem) {
+        // $('li').remove();
+        
     // variable creates a list item 
-    let listItem = $('<li>');
+     listItem = $('<li>');
 
     // assigns listItem a class to be styled 
     listItem.attr('class', 'choiceBtn'); 
@@ -123,9 +130,8 @@ function startGame(index) {
     createOl.append(listItem);
 
     // the click event will now redirect it to a different function 
-    listItem.on("click", nextQuestion);
+    listItem.on("click", (nextQuestion));
         
-    
 //   // once the index stores the value of the index, the if else function runs 
 //   if (index < questions.length) { 
 //     // questionIndex = questions.length - 1;
@@ -148,32 +154,42 @@ function startGame(index) {
 }
 
 function nextQuestion (event) {
-    // decision stores the value of what got clicked 
-    let decision = event.target;
 
-    console.log(decision)
-    console.log(questions[index].answer);
-if (decision.matches('li')){
+        // decision stores the value of what got clicked 
+        let decision = event.target;
 
-    if (decision.textContent == questions[index].answer) {
-        score++;
-        // quizCard.setText = ("");
-        decisionCard.text('CORRECT!' + ' You have '+ score + '/5');
-        // index++;
+        console.log(decision)
+        console.log(index);
+        console.log(questions[index].title);
+        console.log(questions[index].choices);
+        console.log(questions[index].answer);
+    if (decision.matches('li')){
+    
+        if (decision.textContent == questions[index].answer) {
+            score++;
+            // quizCard.setText = ("");
+            decisionCard.text('CORRECT!' + ' You have '+ score + '/5');
+            // index++;
+    
+        } else {
+            decisionCard.text('INCORRECT!' + ' You have '+ score + '/5');
+            timerCount -= penalty;
+            // quizCard.setText = ("");
+            // index++; 
+        }
+    } 
+    // adds 1 to the index once decision has been made 
+    index++;
+    
 
-    } else {
-        decisionCard.text('INCORRECT!' + ' You have '+ score + '/5');
-        timerCount -= penalty;
-        // quizCard.setText = ("");
-        // index++; 
-    }
-} 
-index++;
 
-    if (index >= questions.length){
-        quizComplete();
+        if (index >= questions.length){
 
-    }
+            quizComplete();
+    
+        } else {
+            startGame();
+        }
 }
 // The quizIncomplete function is called when timer reaches 0
 function quizIncomplete() {
@@ -184,6 +200,7 @@ function quizIncomplete() {
 
 // add a link here to a bootstrap form for highscore 
 function quizComplete() {
+    
 
     // create a p element to be added on the quizCard with the following text
     let createP = $('<p>');
@@ -192,10 +209,10 @@ function quizComplete() {
     quizCard.append(createP);
 
     if (timerCount >=0 ){
-        let finalScore = timerCount;
+        var finalScore = timerCount;
 
     clearInterval(timer);
-    // quizCard.hide();
+    
     }
 
     // create a label to store the initials upon completion and possibly to style later with new ids
