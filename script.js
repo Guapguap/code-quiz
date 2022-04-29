@@ -126,7 +126,6 @@ function startGame(index) {
     listItem.on("click", nextQuestion);
         
     
-  
 //   // once the index stores the value of the index, the if else function runs 
 //   if (index < questions.length) { 
 //     // questionIndex = questions.length - 1;
@@ -183,6 +182,7 @@ function quizIncomplete() {
     startButton.disabled = false;
 }
 
+// add a link here to a bootstrap form for highscore 
 function quizComplete() {
 
     // create a p element to be added on the quizCard with the following text
@@ -198,14 +198,14 @@ function quizComplete() {
     // quizCard.hide();
     }
 
-    // create a label to store the initials upon completion 
+    // create a label to store the initials upon completion and possibly to style later with new ids
     let createLabel = $("<label>");
     createLabel.attr("id", "createLabel");
     createLabel.text("Enter your initials: ");
 
     quizCard.append(createLabel);
 
-    // create an input section for the label so they are able to type into the empty text field
+    // create an input section for the label so they are able to type into the empty text field and possibly to style later with new ids
     let createInput = $("<input>");
     createInput.attr("type", "text");
     createInput.attr("id", "initials");
