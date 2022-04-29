@@ -100,7 +100,7 @@ function startGame() {
         // $('listItem ').html();
         // $('listItem').empty();
         // listItem.remove();
-       
+        
 
         // to loop through entire questions array
         for (let i = 0; i < questions.length; i++) {
@@ -114,7 +114,6 @@ function startGame() {
     // changing the variable of currentChoices to just current question 
         // New for each for question choices
     currentChoices.forEach(function (newItem) {
-        // $('li').remove();
         
     // variable creates a list item 
      listItem = $('<li>');
@@ -182,12 +181,14 @@ function nextQuestion (event) {
     index++;
     
 
-
+    // this if else statement stops the questions when it is greater than or equal to and invokes the quizComplete function 
+    // if it is not done with the questions, it removes all the previous li that were appended and invokes the start game function again with the next questions 
         if (index >= questions.length){
 
             quizComplete();
     
         } else {
+            $('li').remove();
             startGame();
         }
 }
