@@ -22,8 +22,12 @@ body {
     font-size: 48px;
 }
 
-.highscore:hover {
+h2 {
     color: white;
+}
+
+.highscore:hover {
+   color: rgb(107, 18, 22) ;
     
 }
 
@@ -80,8 +84,12 @@ main {
 .startBtn,
 .clearBtn,
 .backBtn {
+    color: white;
+    background-color: rgb(108, 21, 38);
+    justify-content: space-between;
     flex-direction: row;
    height: 100px;
-   width: 100px;
+   width: 300px;
    margin: 10px;
+   font-size: 30px;
 }

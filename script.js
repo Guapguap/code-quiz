@@ -141,9 +141,7 @@ function nextQuestion (event) {
         // if true then the following code will perform 
         if (decision.textContent == questions[index].answer) {
             score++;
-            // quizCard.setText = ("");
             decisionCard.text('CORRECT!' + ' You have '+ score + '/5');
-            // index++;
     
         // if they do not match then the following code will perform 
         } else {
@@ -231,7 +229,6 @@ function quizComplete() {
         console.log(createInput.value);
         let initials = createInput.value;
 
-        if(!initials) {
             let finalScore = {
                 initials: initials,
                 score: timeScore,
@@ -248,7 +245,7 @@ function quizComplete() {
             localStorage.setItem("allScores", newScore);
             // Travels to final page
             window.location.assign("highscore.html");
-        }
+        
     });
 
 }
