@@ -199,6 +199,7 @@ function quizComplete() {
     createP.attr('class', 'complete-p');
     startCard.append(createP);
 
+    // this if statement stores the value of the time the quiz is completed before it hits 0 
     if (timerCount >=0 ){
 
         var timeScore = timerCount;
@@ -218,10 +219,10 @@ function quizComplete() {
 
     // attempt at making this only vanilla JS to correct the undefined value in input 
     // create an input section for the label so they are able to type into the empty text field
-    let createInput = document.createElement('input');
-    createInput.setAttribute('type', 'text');
-    createInput.setAttribute('id', 'initials');
-    createInput.textContent = '';
+    let createInput = $('<input>');
+    createInput.attr('type', 'text');
+    createInput.attr('id', 'initials');
+    $('#initials').text();
 
     startCard.append(createInput);
     
@@ -237,9 +238,8 @@ function quizComplete() {
     // figure out how to put this in the highscore section 
     // Event listener to capture initials and local storage for initials and score
     createSubmit.on('click', function () {
-
-        console.log(createInput.value);
-        let initials = createInput.value;
+  
+        let initials = $('#initials').val();
 
             let finalScore = {
                 initials: initials,
@@ -256,7 +256,7 @@ function quizComplete() {
             let newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore);
             // Travels to final page
-            window.location.assign("highscore.html");
+            window.location.assign("highscore.html"); 
         
     });
 
