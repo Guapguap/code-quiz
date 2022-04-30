@@ -210,17 +210,18 @@ function quizComplete() {
     
 
     // create a label to store the initials upon completion
-    let createLabel = $("<label>");
-    createLabel.attr("id", "createLabel");
-    createLabel.text("Enter your initials: ");
+    let createLabel = $('<label>');
+    createLabel.attr('id', 'createLabel');
+    createLabel.text('Enter your initials: ');
 
     startCard.append(createLabel);
 
+    // attempt at making this only vanilla JS to correct the undefined value in input 
     // create an input section for the label so they are able to type into the empty text field
-    let createInput = $("<input>");
-    createInput.attr("type", "text");
-    createInput.attr('id', 'initials');
-    createInput.text()
+    let createInput = document.createElement('input');
+    createInput.setAttribute('type', 'text');
+    createInput.setAttribute('id', 'initials');
+    createInput.textContent = '';
 
     startCard.append(createInput);
     
@@ -235,7 +236,7 @@ function quizComplete() {
 
     // figure out how to put this in the highscore section 
     // Event listener to capture initials and local storage for initials and score
-    createSubmit.on("click", function () {
+    createSubmit.on('click', function () {
 
         console.log(createInput.value);
         let initials = createInput.value;
