@@ -104,7 +104,7 @@ function startGame() {
     currentChoices.forEach(function (newItem) {
         
     // variable creates a list item 
-     listItem = $('<li>');
+    listItem = $('<li>');
 
     // assigns listItem a class to be styled 
     listItem.attr('class', 'choiceBtn'); 
@@ -210,12 +210,12 @@ function quizComplete() {
 
     // create an input section for the label so they are able to type into the empty text field
     let createInput = $("<input>");
-    createInput.attr("type", "input");
+    createInput.attr("type", "text");
     createInput.attr("id", "initials");
-    createInput.textContent = ""
+    createInput.text()
 
     startCard.append(createInput);
-
+    
     // create a submit button 
     let createSubmit = $("<button>");
     createSubmit.attr("type", "submit");
@@ -229,25 +229,27 @@ function quizComplete() {
     createSubmit.on("click", function () {
 
         console.log(createInput.value);
-        let initials = createInput.value
+        let initials = createInput.value;
 
-        if (initials) {
-            let storedScore = {
+        if(!initials) {
+            let finalScore = {
                 initials: initials,
-                score: timeScore
+                score: timeScore,
             }
-            console.log(storedScore);
+            console.log(finalScore);
             let allScores = localStorage.getItem("allScores");
             if (!allScores) {
                 allScores = [];
             } else {
                 allScores = JSON.parse(allScores);
             }
-            allScores.push(storedScore);
+            allScores.push(finalScore);
             let newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore);
+            // Travels to final page
             window.location.assign("highscore.html");
         }
     });
+
 }
 
