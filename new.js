@@ -193,9 +193,9 @@ function quizComplete() {
 
     if (timerCount >=0 ){
 
-        var timeScore = timerCount;
+        var finalScore = timerCount;
         clearInterval(timer);
-        decisionCard.text('Your highscore is: ' + timeScore);
+        decisionCard.text('Your highscore is: ' + finalScore);
 
     }
 
@@ -210,7 +210,7 @@ function quizComplete() {
 
     // create an input section for the label so they are able to type into the empty text field
     let createInput = $("<input>");
-    createInput.attr("type", "input");
+    createInput.attr("type", "text");
     createInput.attr("id", "initials");
     createInput.textContent = ""
 
@@ -234,11 +234,11 @@ function quizComplete() {
         if (initials) {
             let storedScore = {
                 initials: initials,
-                score: timeScore
+                score: finalScore
             }
             console.log(storedScore);
             let allScores = localStorage.getItem("allScores");
-            if (!allScores) {
+            if (allScores === null) {
                 allScores = [];
             } else {
                 allScores = JSON.parse(allScores);
@@ -250,4 +250,3 @@ function quizComplete() {
         }
     });
 }
-
