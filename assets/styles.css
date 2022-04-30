@@ -46,12 +46,14 @@ main {
     text-align:center;
 }
 
-.word-guess {
+.board {
     width: 55vw;
     height: 400px;
 }
 
 .card {
+    display: flex;
+    justify-content: center;
     background: radial-gradient(circle, rgb(76, 23, 199) 0%, rgba(221, 28, 86, 0.604) 100%);
     border: 1px solid #eceff1;
     border-radius: 8px;
@@ -80,6 +82,11 @@ main {
     margin-top: 5px;
 }
 
+#submit,
+#initials {
+    margin: 10px;
+    
+}
 
 .startBtn,
 .clearBtn,

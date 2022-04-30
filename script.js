@@ -48,6 +48,12 @@ let listItem = $('<li>');
 let score = 0;
 let index = 0;
 
+// variable to collect the localStorage 
+let allScores = localStorage.getItem("allScores");
+
+// hide it in the beginning to make it look more presentable 
+decisionCard.hide();
+
 function startBtn() {
     isComplete = false;
     timerCount = 90;
@@ -55,10 +61,11 @@ function startBtn() {
     // hides and shows the selected variables 
     startButton.hide();
     startCard.hide();
+    decisionCard.show();
     quizCard.show();
 
     // invokes these functions when button is pressed 
-    startGame() 
+    startQuiz() 
     startTimer()
 }
 
@@ -67,6 +74,7 @@ startButton.on("click", startBtn);
 
 // this timer function will perform the following code and invoke quizIncomplete if not completed in the allotted time 
 function startTimer() {
+    
     // Sets timer
     timer = setInterval(function() {
         timerCount--;
@@ -90,7 +98,7 @@ function startTimer() {
 }
 
 // main function displaying the questions and choices 
-function startGame() {
+function startQuiz() {
 
         // to loop through entire questions array
         for (let i = 0; i < questions.length; i++) {
@@ -123,7 +131,7 @@ function startGame() {
 })
 }
 
-// this function will determine if the selected li is correct or not, incriment the index by 1 to move onto the next question / choices, and clear out the previous li and invoke the startGame function again to repeat the process until all questions are answered 
+// this function will determine if the selected li is correct or not, incriment the index by 1 to move onto the next question / choices, and clear out the previous li and invoke the startQuiz function again to repeat the process until all questions are answered 
 function nextQuestion (event) {
 
         // decision stores the value of what got clicked 
@@ -163,7 +171,7 @@ function nextQuestion (event) {
     
         } else {
             $('li').remove();
-            startGame();
+            startQuiz();
         }
 }
 
@@ -174,6 +182,8 @@ function quizIncomplete() {
     quizCard.text('TIME IS UP! Click the start button above again to retake the quiz.');
     startButton.show();
     startButton.disabled = false;
+
+    quizComplete();
 }
 
 // add a link here to a bootstrap form for highscore 
@@ -209,16 +219,17 @@ function quizComplete() {
     // create an input section for the label so they are able to type into the empty text field
     let createInput = $("<input>");
     createInput.attr("type", "text");
-    createInput.attr("id", "initials");
+    createInput.attr('id', 'initials');
     createInput.text()
 
     startCard.append(createInput);
     
     // create a submit button 
-    let createSubmit = $("<button>");
-    createSubmit.attr("type", "submit");
-    createSubmit.attr("id", "Submit");
-    createSubmit.text("Submit");
+    let createSubmit = $('<button>');
+    createSubmit.attr('type', 'submit');
+    createSubmit.attr('class', 'submitBtn');
+    createSubmit.attr('id', 'Submit');
+    createSubmit.text('Submit');
 
     startCard.append(createSubmit);
 
@@ -234,7 +245,7 @@ function quizComplete() {
                 score: timeScore,
             }
             console.log(finalScore);
-            let allScores = localStorage.getItem("allScores");
+            
             if (!allScores) {
                 allScores = [];
             } else {
