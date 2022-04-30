@@ -1,5 +1,4 @@
 # code-quiz
-Code Quiz Assigment
 
 ## Description
 
@@ -7,18 +6,18 @@ Here is a short description about my thoughts looking into this project.
 
 <strong>What was your motivation?</strong>
 <br>
-    -The main motivator when completing this assignment was the constant voice in the back of my mind telling to me that I can accomplish this new challenge.
+    -The main motivator when completing this was the challenge I set for myself to write it only/mainly using jquery.
 <br>
 <strong>Why did you build this project?</strong>
 <br>
-    -This project was my first attempt at utilizing my knowledge of JavaScript and see how it worked cohesively with the WEB API methods. A great introduction to the subject.
+    -This project was my first attempt at utilizing my knowledge of everything that I have learned so far in the class. With no code, I had to make my html, css, and javascript page while making them work cohesively. I built this with the idea that I could make an application from scratch.
 <strong>What problems did I encounter?</strong>
 <br>
-    -There were two problems at the end that I encountered. The first being the program still ran even though the user did not put a valid input. The second was that the previous password text was still displayed on the screen and would not refresh when starting a new generated password and would combine the two. With the help of my tutor, I was able to figure out that my variable to store the password was global and not local. So every time the function was ran, the memory was still stored and not reset. The while loop was the solution to the program still running after an invalid input. The prompt kept displaying even after an invalid input with an alert to notify the user to choose a valid number. 
+    -First main problem I encountered was when I was trying to cycle through the index of question titles and choices. I console logged it and found out that the index was incrementing but my question and choice text was not rotating on the page. I solved the title issue by invoking the startQuiz function again which switched the text, but presented me with a new problem. My li of choices were appending to the board but not replacing the olds ones. I thought back to my password generator assignment where I was dealing with a similar problem. I found out to add a line of code that corrected the issue when also invoking the startQuiz functio again. My last problem was defining the value from the user input after submitting. I was able to do a temporary fix by converting my jQuery language to JavaScript.
 <br>
 <strong>What did you learn?</strong>
 <br>
-    -I learned a lot more about if else statements, how loops are very important to get an answer you want without having to write an unnecessary amount of code, and the importance of global and local scopes.
+    -I learned a lot more about all the languages I have learned so far. My understanding overall for coding has increased. A lot of problems that I was presented, I learned how to embrace the challenge and learn for future projects how to resolve similar issues.
 
 ## Website Link and Screenshot Usage
 
@@ -26,7 +25,7 @@ Below is the link to my website and a screenshot of my website to preview it bef
 
 <ol>
     <li>If you would like to open up the website, click on the hyperlink provided below.</li>
-    <li>Once you are brought to the website page, you can click the button and proceed by selecting the following commands displayed.</li>
+    <li>Once you are brought to the website page, you can click the 'Start' button and proceed by answering the questions that follow, then submit your score.</li>
     <li>If you do not want to open the website, you can preview how it has been designed in the screenshot below.</li>
 </ol>
 
